@@ -41,6 +41,7 @@ public class AlbaranServiceImpl implements AlbaranService {
             albaranDB.setMatricula(albaran.getMatricula());
             albaranDB.setPrecio(albaran.getPrecio());
             albaranDB.setLavado(albaran.getLavado());
+            albaranDB.setFacturado(albaran.isFacturado());
             albaranRepository.save(albaranDB);
         }
 

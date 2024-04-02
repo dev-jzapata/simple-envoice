@@ -1,6 +1,7 @@
 package com.devjzapata.simpleenvoice.albaranes.entities;
 
 import com.devjzapata.simpleenvoice.clientes.entities.Cliente;
+import com.devjzapata.simpleenvoice.facturas.entities.Factura;
 import com.devjzapata.simpleenvoice.lavados.entities.Lavado;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,7 +27,7 @@ public class Albaran {
     private LocalDate fecha;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
 
@@ -36,4 +40,9 @@ public class Albaran {
 
     @Column(nullable = false)
     private double precio;
+
+    @ManyToMany(mappedBy = "albaranes")
+    private List<Factura> facturas = new ArrayList<>();
+
+    private boolean facturado;
 }
