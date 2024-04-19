@@ -50,6 +50,56 @@ public class Pruebas01 implements CommandLineRunner {
         lavado03.setNombre("LAvado Completo");
         lavadoRepository.save(lavado03);
 
+        Lavado lavado04 = new Lavado();
+        lavado04.setId(4L);
+        lavado04.setNombre("LAvado Completo");
+        lavadoRepository.save(lavado04);
+
+        Lavado lavado05 = new Lavado();
+        lavado05.setId(5L);
+        lavado05.setNombre("LAvado Completo");
+        lavadoRepository.save(lavado05);
+
+        Lavado lavado06 = new Lavado();
+        lavado06.setId(6L);
+        lavado06.setNombre("LAvado Completo");
+        lavadoRepository.save(lavado06);
+
+        Lavado lavado07 = new Lavado();
+        lavado07.setId(7L);
+        lavado07.setNombre("LAvado Completo");
+        lavadoRepository.save(lavado07);
+
+        Lavado lavado08 = new Lavado();
+        lavado08.setId(8L);
+        lavado08.setNombre("LAvado Completo");
+        lavadoRepository.save(lavado08);
+
+        Lavado lavado13 = new Lavado();
+        lavado13.setId(13L);
+        lavado13.setNombre("LAvado Completo");
+        lavadoRepository.save(lavado13);
+
+        Lavado lavado09 = new Lavado();
+        lavado09.setId(9L);
+        lavado09.setNombre("LAvado Completo");
+        lavadoRepository.save(lavado09);
+
+        Lavado lavado10 = new Lavado();
+        lavado10.setId(10L);
+        lavado10.setNombre("LAvado Completo");
+        lavadoRepository.save(lavado10);
+
+        Lavado lavado11 = new Lavado();
+        lavado11.setId(11L);
+        lavado11.setNombre("LAvado Completo");
+        lavadoRepository.save(lavado11);
+
+        Lavado lavado12 = new Lavado();
+        lavado12.setId(12L);
+        lavado12.setNombre("LAvado Completo");
+        lavadoRepository.save(lavado12);
+
 
         Cliente cliente01 = new Cliente();
         cliente01.setId(1L);

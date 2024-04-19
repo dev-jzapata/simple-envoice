@@ -2,7 +2,11 @@ package com.devjzapata.simpleenvoice.clientes.services;
 
 import com.devjzapata.simpleenvoice.clientes.entities.Cliente;
 import com.devjzapata.simpleenvoice.clientes.repositories.ClienteRepository;
+import com.devjzapata.simpleenvoice.lavados.entities.Lavado;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -14,9 +18,14 @@ public class ClienteServiceImpl implements ClienteService{
 
 
     @Override
-    public List<Cliente> obtenertodos() {
+    public Page<Cliente> obtenertodos() {
 
-        return clienteRepository.findAll();
+        Pageable pagin = PageRequest.of(0,25);
+
+        Page<Cliente> clientePage = null;
+        clientePage = clienteRepository.findAll(pagin);
+
+        return clientePage;
     }
 
     @Override

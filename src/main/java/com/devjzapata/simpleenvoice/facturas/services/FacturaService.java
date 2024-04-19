@@ -17,4 +17,8 @@ public interface FacturaService  {
     void eliminarFactura(Long id);
 
     Factura obtenerFacturaPorCodigo(String codigo);
+
+    double sumarTotalFactura(Long id);
+
+    void albaranFacturado(Factura factura, boolean facturado);
 }

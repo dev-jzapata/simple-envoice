@@ -1,5 +1,6 @@
 package com.devjzapata.simpleenvoice.facturas.services.impl;
 
+import com.devjzapata.simpleenvoice.albaranes.entities.Albaran;
 import com.devjzapata.simpleenvoice.facturas.entities.Factura;
 import com.devjzapata.simpleenvoice.facturas.repositories.FacturaRepository;
 import com.devjzapata.simpleenvoice.facturas.services.FacturaService;
@@ -60,6 +61,7 @@ public class FacturaServiceImpl implements FacturaService {
         return facturaRepository.findByCodigoFactura(codigo).orElse(null);
     }
 
+    @Override
     public double sumarTotalFactura(Long id){
 
         double precio =0;
@@ -72,7 +74,7 @@ public class FacturaServiceImpl implements FacturaService {
 
         return precio;
     }
-
+    @Override
     public void albaranFacturado(Factura factura, boolean facturado){
 
         for(int i=0; i < factura.getAlbaranes().size();i++) {

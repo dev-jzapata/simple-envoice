@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
+@Table(name = "albaran")
 public class Albaran {
 
     @Id
@@ -27,14 +28,14 @@ public class Albaran {
     private LocalDate fecha;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
 
     @Column(nullable = false)
     private String matricula;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "lavado_id", referencedColumnName = "id")
     private Lavado lavado;
 

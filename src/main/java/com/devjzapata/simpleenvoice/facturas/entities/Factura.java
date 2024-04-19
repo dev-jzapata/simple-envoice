@@ -33,7 +33,7 @@ public class Factura {
 
     @ManyToMany(cascade = {CascadeType.ALL, CascadeType.MERGE})
     @JoinTable(name = "factura_albaran",
-            joinColumns = @JoinColumn(name = "factura_id"),
+            joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "albaran_id"))
     private List<Albaran> albaranes = new ArrayList<>();
 

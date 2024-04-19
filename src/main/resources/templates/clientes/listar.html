@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Lavados</title>
+
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}" />
+</head>
+<body>
+<nav th:replace="fragments/navbar.html :: navbar"></nav>
+
+<div class="container mt-5">
+    <h2 class="text-center">Lista de clientes</h2>
+    <div th:if="${eliminado} != null OR ${actualizado}!= null">
+        <div th:if="${eliminado}== 'error' OR ${actualizado} == 'error'" th:classAppend="|alert alert-danger alert-dismissable|" role="alert" th:text="${message}"></div>
+        <div th:unless="${eliminado}== 'error' OR ${actualizado} == 'error'" th:classAppend="|alert alert-success alert-dismissable|" role="alert" th:text="${message}"></div>
+    </div>
+    <div>
+        <a class="btn btn-primary" th:href="@{/clientes/crear}">Nuevo</a>
+    </div>
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">CIF</th>
+                <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cliente : ${clientesLista}">
+                <th scope="row" th:text="${cliente.id}"></th>
+                <td th:text="${cliente.nombre}"></td>
+                <td th:text="${cliente.cif}"></td>
+                <td>
+                    <a class="btn btn-warning" th:href="@{/clientes/editar/{id}(id=${cliente.id})}">Editar</a>
+                    <a class="btn btn-danger" th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<nav th:replace="fragments/pagin.html :: pagin"></nav>
+
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}" ></script>
+</body>
+</html>

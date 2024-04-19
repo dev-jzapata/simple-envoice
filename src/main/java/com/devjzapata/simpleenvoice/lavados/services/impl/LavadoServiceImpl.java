@@ -1,13 +1,16 @@
 package com.devjzapata.simpleenvoice.lavados.services.impl;
 
+import com.devjzapata.simpleenvoice.albaranes.repositories.AlbaranRepository;
+import com.devjzapata.simpleenvoice.facturas.repositories.FacturaRepository;
 import com.devjzapata.simpleenvoice.lavados.entities.Lavado;
 import com.devjzapata.simpleenvoice.lavados.repositories.LavadoRepository;
 import com.devjzapata.simpleenvoice.lavados.services.LavadoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LavadoServiceImpl implements LavadoService {
@@ -16,9 +19,16 @@ public class LavadoServiceImpl implements LavadoService {
     private LavadoRepository lavadoRepository;
 
     @Override
-    public List<Lavado> obtenerTodos() {
-        return lavadoRepository.findAll();
+    public Page<Lavado> obtenerTodos() {
+        int size= lavadoRepository.findAll().size();
+        Pageable pagin = PageRequest.of(0,25);
+
+        Page<Lavado> lavadoPage = null;
+        lavadoPage = lavadoRepository.findAll(pagin);
+
+        return lavadoPage;
     }
+
 
     @Override
     public Lavado crearLavado(Lavado lavado) {
@@ -27,7 +37,7 @@ public class LavadoServiceImpl implements LavadoService {
 
     @Override
     public Lavado obtenerLavado(Long id) {
-
+        System.out.println("Lavados: "+ lavadoRepository.findById(id).orElse(null));
         return lavadoRepository.findById(id).orElse(null);
     }
 
