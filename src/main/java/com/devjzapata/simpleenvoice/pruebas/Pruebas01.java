@@ -133,7 +133,7 @@ public class Pruebas01 implements CommandLineRunner {
         albaran01.setId(1L);
         albaran01.setCliente(cliente01);
         albaran01.setLavado(lavado01);
-        albaran01.setFecha(LocalDate.of(2024,01,05));
+        albaran01.setFecha(LocalDate.of(2024,02,05));
         albaran01.setMatricula("5122CTM");
         albaran01.setPrecio(10.00);
         albaranRepository.save(albaran01);

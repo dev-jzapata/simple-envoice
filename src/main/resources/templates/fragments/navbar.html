@@ -14,8 +14,8 @@
       <li class="nav-item" th:classappend="${request == 'clientes'} ? 'active'">
         <a class="nav-link" th:href="@{/clientes}" th:classappend="${request == 'clientes'} ? 'active'">Clientes</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Albaranes</a>
+      <li class="nav-item" th:classappend="${request == 'albaranes'} ? 'active'">
+        <a class="nav-link" th:href="@{/albaranes}" th:classappend="${request == 'albaranes'} ? 'active'">Albaranes</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Facturas</a>

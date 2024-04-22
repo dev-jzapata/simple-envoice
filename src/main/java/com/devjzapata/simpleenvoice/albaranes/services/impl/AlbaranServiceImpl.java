@@ -3,7 +3,11 @@ package com.devjzapata.simpleenvoice.albaranes.services.impl;
 import com.devjzapata.simpleenvoice.albaranes.entities.Albaran;
 import com.devjzapata.simpleenvoice.albaranes.repositories.AlbaranRepository;
 import com.devjzapata.simpleenvoice.albaranes.services.AlbaranService;
+import com.devjzapata.simpleenvoice.clientes.entities.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +20,15 @@ public class AlbaranServiceImpl implements AlbaranService {
     AlbaranRepository albaranRepository;
 
     @Override
-    public List<Albaran> obtenerTodos() {
-        return albaranRepository.findAll();
+    public Page<Albaran> obtenerTodos() {
+
+        Pageable pagin = PageRequest.of(0,25);
+
+        Page<Albaran> albaranPage = null;
+        albaranPage = albaranRepository.findAll(pagin);
+
+        return albaranPage;
+
     }
 
     @Override
