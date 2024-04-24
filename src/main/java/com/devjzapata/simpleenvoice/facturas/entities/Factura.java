@@ -6,10 +6,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -25,13 +25,14 @@ public class Factura {
     @Column(unique = true)
     private String codigoFactura;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private LocalDate fecha;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
 
-    @ManyToMany(cascade = {CascadeType.ALL, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "factura_albaran",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "albaran_id"))

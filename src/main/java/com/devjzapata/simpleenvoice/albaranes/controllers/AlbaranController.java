@@ -1,11 +1,9 @@
 package com.devjzapata.simpleenvoice.albaranes.controllers;
 
 import com.devjzapata.simpleenvoice.albaranes.entities.Albaran;
-import com.devjzapata.simpleenvoice.albaranes.repositories.AlbaranRepository;
 import com.devjzapata.simpleenvoice.albaranes.services.AlbaranService;
-import com.devjzapata.simpleenvoice.clientes.entities.Cliente;
-import com.devjzapata.simpleenvoice.clientes.repositories.ClienteRepository;
-import com.devjzapata.simpleenvoice.lavados.repositories.LavadoRepository;
+import com.devjzapata.simpleenvoice.clientes.services.ClienteService;
+import com.devjzapata.simpleenvoice.lavados.services.LavadoService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +26,13 @@ import java.util.stream.Collectors;
 public class AlbaranController {
 
     @Autowired
-    private AlbaranRepository albaranRepository;
+    private LavadoService lavadoService;
 
     @Autowired
     private AlbaranService albaranService;
     @Autowired
-    private ClienteRepository clienteRepository;
-    @Autowired
-    private LavadoRepository lavadoRepository;
+    private ClienteService clienteService;
+
 
     @GetMapping
     public String getListaAlbaranes(Model model, @Param("keyword") String keyword, @RequestParam(defaultValue = "1")int page){
@@ -51,15 +48,13 @@ public class AlbaranController {
 
 
             if (keyword == null){
-                pageAlbaranes = albaranRepository.findAll(paging);
+                pageAlbaranes = albaranService.obtenerTodos();
             }else{
-                pageAlbaranes = albaranRepository.findByClienteNombreContainingIgnoreCase(keyword, paging);
+                pageAlbaranes = albaranService.obtenerPorClienteNombre(keyword, paging);
             }
 
             int current = pageAlbaranes.getNumber() +1;
-            System.out.println("Page: "+ page);
-            System.out.println("TotalPages: "+ pageAlbaranes.getTotalPages());
-            System.out.println("TotalItems: "+ pageAlbaranes.getTotalElements());
+
             albaranes = pageAlbaranes.getContent();
             model.addAttribute("albaranesLista", albaranes);
             model.addAttribute("currentPage", current);
@@ -71,10 +66,7 @@ public class AlbaranController {
 
         }catch (Exception e){
             model.addAttribute("message", e.getMessage());
-            System.out.println("Keyword Error: "+ keyword);
-            System.out.println("Keyword Error: "+ e.getMessage());
         }
-        System.out.println("keyword: "+keyword);
 
        return "albaranes/listar";
     }
@@ -85,8 +77,8 @@ public class AlbaranController {
 
         model.addAttribute("albaran", new Albaran());
         model.addAttribute("accion", "/albaranes/crear");
-        model.addAttribute("clientes", clienteRepository.findAll());
-        model.addAttribute("lavados", lavadoRepository.findAll());
+        model.addAttribute("clientes", clienteService.obtenertodos());
+        model.addAttribute("lavados", lavadoService.obtenerTodos());
 
         return "albaranes/formulario";
     }
@@ -115,8 +107,8 @@ public class AlbaranController {
         if (albaran != null){
             model.addAttribute("albaran", albaran);
             model.addAttribute("accion", "/albaranes/editar/"+id);
-            model.addAttribute("clientes", clienteRepository.findAll());
-            model.addAttribute("lavados", lavadoRepository.findAll());
+            model.addAttribute("clientes", clienteService.obtenertodos());
+            model.addAttribute("lavados", lavadoService.obtenerTodos());
 
             return "albaranes/formulario";
         }
@@ -145,7 +137,6 @@ public class AlbaranController {
             redirAttrs.addFlashAttribute("message", "El Albaran ha sido eliminado con exito");
 
         }catch (Exception e){
-            System.out.println("error: "+e.getMessage());
             redirAttrs.addFlashAttribute("eliminado", "error");
             redirAttrs.addFlashAttribute("message", "El Albaran no se ha eliminado porque " +
                     " facturas asociadas");

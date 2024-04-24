@@ -9,13 +9,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AlbaranRepository extends JpaRepository<Albaran,Long> {
 
-    List<Albaran> findByLavadoId(Long lavadoId);
-    Page<Albaran> findByClienteContainingIgnoreCase(String keyword, Pageable pageable);
     Page<Albaran> findByClienteNombreContainingIgnoreCase(String keyword, Pageable pageable);
+
+    List<Albaran> findByClienteIdAndFacturado(Long cliente, Boolean facturado);
 
 
 

@@ -44,7 +44,7 @@ public class LavadoController {
             Pageable paging = PageRequest.of(page -1, size);
             Page<Lavado> pageLavados = null;
 
-            pageLavados = lavadoRepository.findAll(paging);
+            pageLavados = lavadoService.obtenerTodos();
             int current = pageLavados.getNumber() +1;
             System.out.println("Page: "+ page);
             System.out.println("TotalPages: "+ pageLavados.getTotalPages());

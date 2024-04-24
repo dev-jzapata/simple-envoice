@@ -1,14 +1,19 @@
 package com.devjzapata.simpleenvoice.albaranes.services;
 
 import com.devjzapata.simpleenvoice.albaranes.entities.Albaran;
-import com.devjzapata.simpleenvoice.albaranes.repositories.AlbaranRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface AlbaranService {
 
     Page<Albaran> obtenerTodos();
+
+    Page<Albaran> obtenerPorClienteNombre(String keyword, Pageable pageable);
+
+    List<Albaran> obtenerPorClienteYFacturado(Long cliente, Boolean facturado);
+
 
     Albaran crearAlbaran(Albaran albaran);
 

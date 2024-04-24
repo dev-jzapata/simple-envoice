@@ -1,5 +1,5 @@
 <nav th:fragment="navbar()" class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" th:href="@{/albaranes}">App</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -17,8 +17,8 @@
       <li class="nav-item" th:classappend="${request == 'albaranes'} ? 'active'">
         <a class="nav-link" th:href="@{/albaranes}" th:classappend="${request == 'albaranes'} ? 'active'">Albaranes</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Facturas</a>
+      <li class="nav-item" th:classappend="${request == 'albaranes'} ? 'active'">
+        <a class="nav-link" th:href="@{/facturas}" th:classappend="${request == 'albaranes'} ? 'active'">Facturas</a>
       </li>
     </ul>
   </div>

@@ -24,8 +24,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/clientes")
 public class ClienteController {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+
     @Autowired
     private ClienteService clienteService;
     @GetMapping()
@@ -37,7 +36,7 @@ public class ClienteController {
             Pageable paging = PageRequest.of(page -1, size);
             Page<Cliente> pageCientes = null;
 
-            pageCientes = clienteRepository.findAll(paging);
+            pageCientes = clienteService.obtenertodos();
             int current = pageCientes.getNumber() +1;
             System.out.println("Page: "+ page);
             System.out.println("TotalPages: "+ pageCientes.getTotalPages());

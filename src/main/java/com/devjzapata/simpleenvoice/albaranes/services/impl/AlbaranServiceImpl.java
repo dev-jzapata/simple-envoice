@@ -10,10 +10,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AlbaranServiceImpl implements AlbaranService {
+
 
 
     @Autowired
@@ -24,11 +27,24 @@ public class AlbaranServiceImpl implements AlbaranService {
 
         Pageable pagin = PageRequest.of(0,25);
 
+        return albaranRepository.findAll(pagin);
+
+    }
+    @Override
+    public Page<Albaran> obtenerPorClienteNombre(String keyword, Pageable pageable) {
+        Pageable pagin = PageRequest.of(0,25);
+
         Page<Albaran> albaranPage = null;
-        albaranPage = albaranRepository.findAll(pagin);
+        albaranPage = albaranRepository.findByClienteNombreContainingIgnoreCase(keyword, pageable);
 
         return albaranPage;
+    }
 
+    public List<Albaran> obtenerPorClienteYFacturado(Long id, Boolean facturado){
+        List<Albaran> albaranList = new ArrayList<>();
+        albaranList = albaranRepository.findByClienteIdAndFacturado(id, facturado);
+
+        return  albaranList;
     }
 
     @Override

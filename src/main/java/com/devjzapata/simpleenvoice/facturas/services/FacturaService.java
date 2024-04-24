@@ -1,12 +1,15 @@
 package com.devjzapata.simpleenvoice.facturas.services;
 
 import com.devjzapata.simpleenvoice.facturas.entities.Factura;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface FacturaService  {
 
-    List<Factura> obtenerTodos();
+    Page<Factura> obtenerTodos();
+    Page<Factura> obtenerPorClienteNombre(String keyword, Pageable pageable);
 
     Factura crearFactura(Factura factura);
 
@@ -18,7 +21,6 @@ public interface FacturaService  {
 
     Factura obtenerFacturaPorCodigo(String codigo);
 
-    double sumarTotalFactura(Long id);
 
     void albaranFacturado(Factura factura, boolean facturado);
 }
