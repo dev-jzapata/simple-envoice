@@ -46,6 +46,7 @@
                 <th th:text="${#temporals.format(factura.fecha, 'dd-MM-yyyy')}"></th>
                 <td th:text="${factura.cliente.nombre}"></td>
                 <td>
+                    <a class="btn btn-primary" th:href="@{/facturas/pdf/{id}(id=${factura.id})}">Generar PDF</a>
                     <a class="btn btn-warning" th:href="@{/facturas/ver/{id}(id=${factura.id})}">Ver</a>
                     <a class="btn btn-danger" th:href="@{/facturas/eliminar/{id}(id=${factura.id})}">Eliminar</a>
                 </td>

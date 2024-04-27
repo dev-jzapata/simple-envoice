@@ -4,6 +4,8 @@ import com.devjzapata.simpleenvoice.albaranes.services.AlbaranService;
 import com.devjzapata.simpleenvoice.clientes.services.ClienteService;
 import com.devjzapata.simpleenvoice.facturas.entities.Factura;
 import com.devjzapata.simpleenvoice.facturas.services.FacturaService;
+import com.devjzapata.simpleenvoice.reports.FacturaExporterPDF;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -134,7 +140,21 @@ public class FacturaController {
         }
         return "redirect:/facturas";
     }
+    @GetMapping("/pdf/{id}")
+    public void generarReportePdf(@PathVariable Long id, HttpServletResponse response) throws IOException {
+        response.setContentType("Application/Pdf");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormat.format(new Date());
 
+        String headerKey = "Content-Disposition";
+        String  headerValue = "attachment; filename=factura"+currentDateTime+".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        Factura factura = facturaService.obtenerFactura(id);
+
+        FacturaExporterPDF cursoExporterPDF = new FacturaExporterPDF(factura);
+        cursoExporterPDF.export(response);
+    }
 
 
 
