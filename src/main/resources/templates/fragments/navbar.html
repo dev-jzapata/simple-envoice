@@ -1,25 +1,52 @@
-<nav th:fragment="navbar()" class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" th:href="@{/albaranes}">App</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Home</a>
-      </li>
-      <li class="nav-item" th:classappend="${request == 'lavados'} ? 'active'">
-        <a class="nav-link" th:href="@{/lavados}" th:classappend="${request == 'lavados'} ? 'active'">Lavados</a>
-      </li>
-      <li class="nav-item" th:classappend="${request == 'clientes'} ? 'active'">
-        <a class="nav-link" th:href="@{/clientes}" th:classappend="${request == 'clientes'} ? 'active'">Clientes</a>
-      </li>
-      <li class="nav-item" th:classappend="${request == 'albaranes'} ? 'active'">
-        <a class="nav-link" th:href="@{/albaranes}" th:classappend="${request == 'albaranes'} ? 'active'">Albaranes</a>
-      </li>
-      <li class="nav-item" th:classappend="${request == 'albaranes'} ? 'active'">
-        <a class="nav-link" th:href="@{/facturas}" th:classappend="${request == 'albaranes'} ? 'active'">Facturas</a>
-      </li>
-    </ul>
+<th:block th:fragment="navbar()">
+
+
+<nav  class="navbar navbar-expand-sm navbar-light bg-light">
+  <div class="container-fluid">
+    <!-- Elementos a la izquierda -->
+    <a class="navbar-brand" href="#">Mi Sitio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item" th:classappend="${request == 'lavados'} ? 'active'">
+          <a class="nav-link" th:href="@{/lavados}" th:classappend="${request == 'lavados'} ? 'active'">Lavados</a>
+        </li>
+        <li class="nav-item" th:classappend="${request == 'clientes'} ? 'active'">
+          <a class="nav-link" th:href="@{/clientes}" th:classappend="${request == 'clientes'} ? 'active'">Clientes</a>
+        </li>
+        <li class="nav-item" th:classappend="${request == 'albaranes'} ? 'active'">
+          <a class="nav-link" th:href="@{/albaranes}" th:classappend="${request == 'albaranes'} ? 'active'">Albaranes</a>
+        </li>
+        <li class="nav-item" th:classappend="${request == 'albaranes'} ? 'active'">
+          <a class="nav-link" th:href="@{/facturas}" th:classappend="${request == 'albaranes'} ? 'active'">Facturas</a>
+        </li>
+        <li class="nav-item" th:classappend="${request == 'usuarios'} ? 'active'">
+          <a class="nav-link" th:href="@{/usuarios}" th:classappend="${request == 'usuarios'} ? 'active'">Usuarios</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Elementos a la derecha -->
+    <div class="d-flex">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+          <a sec:authentication="name" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Username
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li>
+              <form th:action="@{/logout}" method="post">
+                <input class="form-control" type="submit" value="Salir">
+              </form>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
+</th:block>
+
+

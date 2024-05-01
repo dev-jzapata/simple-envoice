@@ -38,8 +38,7 @@ public class ClienteController {
 
             pageCientes = clienteService.obtenertodos();
             int current = pageCientes.getNumber() +1;
-            System.out.println("Page: "+ page);
-            System.out.println("TotalPages: "+ pageCientes.getTotalPages());
+
             clientes = pageCientes.getContent();
             model.addAttribute("clientesLista", clientes);
             model.addAttribute("currentPage", current);

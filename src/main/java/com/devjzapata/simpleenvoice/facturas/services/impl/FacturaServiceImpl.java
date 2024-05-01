@@ -9,12 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 @Transactional
 @Service
 public class FacturaServiceImpl implements FacturaService {
@@ -42,13 +39,20 @@ public class FacturaServiceImpl implements FacturaService {
 
     @Override
     public Factura crearFactura(Factura factura) {
+        if(factura.getCodigoFactura() == ""){
+            factura.setCodigoFactura(null);
+        }
         albaranFacturado(factura, true);
         return facturaRepository.save(factura);
     }
 
     @Override
     public Factura obtenerFactura(Long id) {
-        return facturaRepository.findById(id).orElse(null);
+        Factura factura = facturaRepository.findById(id).orElse(null);
+        if (factura != null){
+            return factura;
+        }
+        return null;
     }
 
     @Override
@@ -60,6 +64,7 @@ public class FacturaServiceImpl implements FacturaService {
             facturaDB.setCodigoFactura(factura.getCodigoFactura());
             facturaDB.setCliente(factura.getCliente());
             facturaDB.setAlbaranes(factura.getAlbaranes());
+            facturaDB.setIva(factura.getIva());
             facturaDB.setTotal(factura.getTotal());
             albaranFacturado(factura, true);
             facturaRepository.save(facturaDB);

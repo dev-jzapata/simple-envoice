@@ -17,8 +17,10 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank(message = "El Campo Nombre no puede estar vacio")
     private String nombre;
+
     @NotBlank(message = "El Campo CIF no puede estar vacio")
     private String cif;
 
@@ -33,6 +35,7 @@ public class Cliente {
     @NotBlank(message = "El Campo dirección no puede estar vacio")
     private String direccion;
 
+    @NotNull(message = "El Campo CP no puede estar vacio")
     private int cp;
 
     @NotBlank(message = "El Campo Ciudad no puede estar vacio")

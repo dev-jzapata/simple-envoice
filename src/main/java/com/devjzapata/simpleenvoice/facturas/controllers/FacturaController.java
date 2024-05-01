@@ -3,6 +3,7 @@ package com.devjzapata.simpleenvoice.facturas.controllers;
 import com.devjzapata.simpleenvoice.albaranes.services.AlbaranService;
 import com.devjzapata.simpleenvoice.clientes.services.ClienteService;
 import com.devjzapata.simpleenvoice.facturas.entities.Factura;
+import com.devjzapata.simpleenvoice.facturas.repositories.FacturaRepository;
 import com.devjzapata.simpleenvoice.facturas.services.FacturaService;
 import com.devjzapata.simpleenvoice.reports.FacturaExporterPDF;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Controller
@@ -39,6 +40,7 @@ public class FacturaController {
 
     @Autowired
     private ClienteService clienteService;
+
 
     @GetMapping
     public String getListaFacturas(Model model, @Param("keyword") String keyword, @RequestParam(defaultValue = "1")int page)
@@ -100,6 +102,7 @@ public class FacturaController {
     @PostMapping("/guardar")
     public String guardarFactura(@ModelAttribute Factura factura, Model model){
         System.out.println("Factura: "+ factura);
+        System.out.println("Factura: "+ factura.getAlbaranes());
         System.out.println("Model: "+ model);
 
         try {
@@ -115,7 +118,7 @@ public class FacturaController {
     }
 
     @GetMapping("/ver/{id}")
-    public String formularioEditarFactura(@PathVariable Long id,Model model){
+    public String formularioVerFactura(@PathVariable Long id,Model model){
         Factura factura = facturaService.obtenerFactura(id);
         if (factura != null){
             model.addAttribute("factura", factura);

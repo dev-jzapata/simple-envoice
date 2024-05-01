@@ -3,7 +3,11 @@ package com.devjzapata.simpleenvoice.albaranes.controllers;
 import com.devjzapata.simpleenvoice.albaranes.entities.Albaran;
 import com.devjzapata.simpleenvoice.albaranes.services.AlbaranService;
 import com.devjzapata.simpleenvoice.clientes.services.ClienteService;
+import com.devjzapata.simpleenvoice.facturas.entities.Factura;
 import com.devjzapata.simpleenvoice.lavados.services.LavadoService;
+import com.devjzapata.simpleenvoice.reports.AlbaranExporterPDF;
+import com.devjzapata.simpleenvoice.reports.FacturaExporterPDF;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +21,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -142,6 +150,22 @@ public class AlbaranController {
                     " facturas asociadas");
         }
         return "redirect:/albaranes";
+    }
+
+    @GetMapping("/pdf/{id}")
+    public void generarReportePdf(@PathVariable Long id, HttpServletResponse response) throws IOException {
+        response.setContentType("Application/Pdf");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormat.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String  headerValue = "attachment; filename=factura"+currentDateTime+".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        Albaran albaran = albaranService.obtenerAlbaran(id);
+
+        AlbaranExporterPDF albaranExporterPDF = new AlbaranExporterPDF(albaran);
+        albaranExporterPDF.export(response);
     }
 
 

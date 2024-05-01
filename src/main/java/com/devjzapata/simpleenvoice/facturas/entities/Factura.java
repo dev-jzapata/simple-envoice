@@ -3,6 +3,8 @@ package com.devjzapata.simpleenvoice.facturas.entities;
 import com.devjzapata.simpleenvoice.albaranes.entities.Albaran;
 import com.devjzapata.simpleenvoice.clientes.entities.Cliente;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,7 +38,11 @@ public class Factura {
     @JoinTable(name = "factura_albaran",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "albaran_id"))
+
     private List<Albaran> albaranes = new ArrayList<>();
+
+
+    private double iva;
 
     private double total;
 

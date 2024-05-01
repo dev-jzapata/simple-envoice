@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}" />
+
+</head>
+<body>
+    <div th:include="fragments/navbar :: navbar"></div>
+    <div class="container mt-5">
+        <h2 class="text-center">Lista de Usuarios</h2>
+        <div th:if="${eliminado} != null OR ${actualizado}!= null">
+            <div th:if="${eliminado}== 'error' OR ${actualizado} == 'error'" th:classAppend="|alert alert-danger alert-dismissable|" role="alert" th:text="${message}"></div>
+            <div th:unless="${eliminado}== 'error' OR ${actualizado} == 'error'" th:classAppend="|alert alert-success alert-dismissable|" role="alert" th:text="${message}"></div>
+        </div>
+        <div>
+            <a class="btn btn-primary" th:href="@{/usuarios/crear}">Nuevo Usuario</a>
+        </div>
+        <div class="container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Roles</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="usuario : ${usuariosLista}">
+                    <th scope="row" th:text="${usuario.id}"></th>
+                    <td th:text="${usuario.username}"></td>
+                    <td th:text="${usuario.roles[0].nombre}"></td>
+                    <td th:text="${usuario.cliente.nombre}"></td>
+                    <td>
+                        <a class="btn btn-warning" th:href="@{/usuarios/editar/{id}(id=${usuario.id})}">Editar</a>
+                        <a class="btn btn-danger"  >Eliminar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}" ></script>
+</body>
+</html>
